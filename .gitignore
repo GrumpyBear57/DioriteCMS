@@ -24,3 +24,6 @@ hs_err_pid*
 
 ### Java ###
 *.class
+
+### DioriteCMS Debug Configuration ###
+/src/main/resources/dev_hibernate.cfg.xml

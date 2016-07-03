@@ -41,6 +41,11 @@ public class DioriteCms
             this.logger.info("Importing Hibernate configuration from classpath: hibernate.cfg.xml");
             configuration.configure("hibernate.cfg.xml");
         }
+        else if (Thread.currentThread().getContextClassLoader().getResource("dev_hibernate.cfg.xml") != null)
+        {
+            this.logger.info("Importing DEVELOPMENT Hibernate configuration from classpath: dev_hibernate.cfg.xml");
+            configuration.configure("dev_hibernate.cfg.xml");
+        }
         else
         {
             throw new IllegalStateException("Not found hibernate.cfg.xml! Create a new one in your application directory.");
