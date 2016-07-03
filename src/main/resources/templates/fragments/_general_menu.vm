@@ -1,0 +1,21 @@
+<nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="http://diorite.org/" class="brand-logo">#OnlyDiorite</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="http://diorite.org/SorryWeDoNotHaveFormYet/">Forum</a></li>
+            <li><a href="http://ci.diorite.org/job/Diorite/">Jenkins</a></li>
+            <li><a href="https://github.com/Diorite/Diorite/">GitHub</a></li>
+            <li><a href="http://diorite.org/nexus/">Nexus</a></li>
+            <li><a href="http://diorite.org/snake/">Snake</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+            <li><a href="http://diorite.org/SorryWeDoNotHaveFormYet/">Forum</a></li>
+            <li><a href="http://ci.diorite.org/job/Diorite/">Jenkins</a></li>
+            <li><a href="https://github.com/Diorite/Diorite/">GitHub</a></li>
+            <li><a href="http://diorite.org/nexus/">Nexus</a></li>
+            <li><a href="http://diorite.org/snake/">Snake</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+</nav>

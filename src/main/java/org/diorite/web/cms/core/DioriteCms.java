@@ -11,9 +11,11 @@ import org.hibernate.cfg.Configuration;
 import org.reflections.Reflections;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 
-@SpringBootApplication
-public class DioriteCms
+@SpringBootApplication(scanBasePackages = "org.diorite.web.cms")
+public class DioriteCms extends SpringBootServletInitializer
 {
     private static DioriteCms INSTANCE;
     private final Logger logger = Logger.getLogger("DioriteCMS");
@@ -67,6 +69,12 @@ public class DioriteCms
     public SessionFactory getHibernate()
     {
         return this.hibernateSessionFactory;
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder)
+    {
+        return builder.sources(DioriteCms.class);
     }
 
     public static void main(final String[] args)
