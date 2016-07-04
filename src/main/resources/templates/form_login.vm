@@ -1,0 +1,31 @@
+#parse("/templates/fragments/_general_header.vm")
+<body>
+    #parse("/templates/fragments/_general_menu.vm")
+    <form class="loginForm" action="/auth/login" method="post">
+        #if ($failed)
+        <div class="row">
+            <div class="card-panel red lighten-1">Invalid username or password!</div>
+        </div>
+        #end
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="username" id="username" type="text" class="validate">
+                <label for="username">Username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="password" id="password" type="password" class="validate">
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <p class="right-align">
+                    <input class="btn btn-large waves-effect waves-light" type="submit" value="Login">
+                </p>
+            </div>
+        </div>
+    </form>
+</body>
+#parse("/templates/fragments/_general_footer.vm")

@@ -1,0 +1,37 @@
+#parse("/templates/fragments/_general_header.vm")
+<body>
+    #parse("/templates/fragments/_general_menu.vm")
+    <form class="loginForm" action="/auth/register" method="post">
+        #if ($failed)
+        <div class="row">
+            <div class="card-panel red lighten-1">Fill all fields!</div>
+        </div>
+        #end
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="user" id="user" type="text" class="validate">
+                <label for="user">Username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="password" id="password" type="password" class="validate">
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="email" id="email" type="email" class="validate">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <p class="right-align">
+                    <input class="btn btn-large waves-effect waves-light" type="submit" value="Register">
+                </p>
+            </div>
+        </div>
+    </form>
+</body>
+#parse("/templates/fragments/_general_footer.vm")

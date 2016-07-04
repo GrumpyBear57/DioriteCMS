@@ -1,0 +1,1 @@
+INSERT INTO dioritecms_permissions VALUES ("access.acp", "Can access Administration Control Panel");
