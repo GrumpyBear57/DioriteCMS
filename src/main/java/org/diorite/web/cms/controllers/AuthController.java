@@ -1,8 +1,14 @@
 package org.diorite.web.cms.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +27,12 @@ public class AuthController
     private GroupRepository   groupRepository;
     @Autowired
     private AccountRepository accountRepository;
+
+    @RequestMapping(value = "/access_denied")
+    public String accessDenied()
+    {
+        return "access_denied";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(final Model model, final Principal principal, final @RequestParam(required = false, defaultValue = "false") Boolean failed)
@@ -54,5 +66,20 @@ public class AuthController
         this.accountRepository.saveAndFlush(account);
 
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request, HttpServletResponse response)
+    {
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null)
+        {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+            return "redirect:/auth/login";
+        }
+        else
+        {
+            return "redirect:/";
+        }
     }
 }

@@ -1,12 +1,18 @@
 <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="http://diorite.org/" class="brand-logo">#OnlyDiorite</a>
+        <a id="logo-container" href="/" class="brand-logo">#OnlyDiorite</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="http://diorite.org/SorryWeDoNotHaveFormYet/">Forum</a></li>
             <li><a href="http://ci.diorite.org/job/Diorite/">Jenkins</a></li>
             <li><a href="https://github.com/Diorite/Diorite/">GitHub</a></li>
             <li><a href="http://diorite.org/nexus/">Nexus</a></li>
             <li><a href="http://diorite.org/snake/">Snake</a></li>
+
+            #if ($isLoggedIn)
+            <li><a href="/auth/logout">Logout</a></li>
+            #else
+            <li><a href="/auth/login">Login</a></li>
+            #end
         </ul>
 
         <ul id="nav-mobile" class="side-nav">

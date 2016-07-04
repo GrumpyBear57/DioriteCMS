@@ -7,11 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = "org.diorite.web.cms")
+@SpringBootApplication(scanBasePackages = "org.diorite.web.cms.*")
 @EntityScan("org.diorite.web.cms.*")
 @EnableJpaRepositories("org.diorite.web.cms.*")
+@EnableCaching
 public class DioriteCms extends SpringBootServletInitializer
 {
     private static DioriteCms INSTANCE;

@@ -1,0 +1,6 @@
+#parse("/templates/fragments/_general_header.vm")
+<body>
+    #parse("/templates/fragments/_general_menu.vm")
+    Sorry, access denied!
+</body>
+#parse("/templates/fragments/_general_footer.vm")

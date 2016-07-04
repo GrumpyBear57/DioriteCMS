@@ -1,20 +1,23 @@
 package org.diorite.web.cms.permissions;
 
-import java.util.Arrays;
+import java.util.Collections;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import org.diorite.web.cms.core.DioriteCms;
 import org.diorite.web.cms.dao.AccountRepository;
 import org.diorite.web.cms.models.Account;
 
+@Component
 public class DioriteAuthenticationProvider implements AuthenticationProvider
 {
     @Autowired
@@ -24,7 +27,12 @@ public class DioriteAuthenticationProvider implements AuthenticationProvider
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException
     {
         final String username = authentication.getName();
-        final String password = authentication.getCredentials().toString();
+        final String password = (String) authentication.getCredentials();
+
+        if (username == null || username.isEmpty() || password == null || password.isEmpty())
+        {
+            throw new BadCredentialsException("Fill username and password fields!");
+        }
 
         final Account account = this.accountRepository.findByUserName(username);
         if (account == null)
@@ -34,8 +42,7 @@ public class DioriteAuthenticationProvider implements AuthenticationProvider
 
         if (account.getPassword().equals(password))
         {
-            authentication.setAuthenticated(true);
-            return new UsernamePasswordAuthenticationToken(account, password, Arrays.asList(new SimpleGrantedAuthority(account.getGroup().getFancyName())));
+            return new UsernamePasswordAuthenticationToken(account, password, Collections.singletonList(account.getGroup()));
         }
         else
         {
@@ -52,5 +59,11 @@ public class DioriteAuthenticationProvider implements AuthenticationProvider
         }
         DioriteCms.getInstance().getLogger().warning("Unsupported authentication method: " + aClass);
         return false;
+    }
+
+    @Override
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("accountRepository", this.accountRepository).toString();
     }
 }

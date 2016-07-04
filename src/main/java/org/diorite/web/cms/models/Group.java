@@ -1,6 +1,7 @@
 package org.diorite.web.cms.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -9,19 +10,26 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity(name = "groups")
-public class Group
+public class Group implements GrantedAuthority
 {
     @Id
     @GeneratedValue
     private int              id;
     private String           fancyName;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Permission> permissions;
 
     public Group()
     {
+    }
+
+    @Override
+    public String getAuthority()
+    {
+        return String.valueOf(this.id);
     }
 
     public String getFancyName()
