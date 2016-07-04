@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.diorite.web.cms.models.Account;
 
 @Configuration
-public class VelocitySecurityExtension implements HandlerInterceptor
+public class VelocityConnector implements HandlerInterceptor
 {
     @Override
     public boolean preHandle(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse, final Object o) throws Exception
@@ -37,6 +37,7 @@ public class VelocitySecurityExtension implements HandlerInterceptor
         if (isLoggedIn)
         {
             final Account account = (Account) ((UsernamePasswordAuthenticationToken) auth).getPrincipal();
+            
             modelAndView.addObject("userName", account.getDisplayName());
         }
     }
@@ -52,7 +53,7 @@ public class VelocitySecurityExtension implements HandlerInterceptor
         @Override
         public void addInterceptors(final InterceptorRegistry registry)
         {
-            registry.addInterceptor(new VelocitySecurityExtension());
+            registry.addInterceptor(new VelocityConnector());
         }
     }
 }
