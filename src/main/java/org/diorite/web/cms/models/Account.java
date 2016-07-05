@@ -24,6 +24,8 @@ public class Account implements PermissionsHolder
     @Column(unique = true)
     private String displayName;
     @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
     private String password;
     @ManyToOne
     private Group  group;
@@ -32,10 +34,11 @@ public class Account implements PermissionsHolder
     {
     }
 
-    public Account(final String userName, final String displayName, final String password, final Group group)
+    public Account(final String userName, final String displayName, final String email, final String password, final Group group)
     {
         this.userName = userName;
         this.displayName = displayName;
+        this.email = email;
         this.password = password;
         this.group = group;
     }
@@ -63,6 +66,16 @@ public class Account implements PermissionsHolder
     public void setDisplayName(final String displayName)
     {
         this.displayName = displayName;
+    }
+
+    public String getEmail()
+    {
+        return this.email;
+    }
+
+    public void setEmail(final String email)
+    {
+        this.email = email;
     }
 
     public String getPassword()

@@ -1,8 +1,10 @@
 #parse("/templates/fragments/_general_header.vm")
 <body>
     #parse("/templates/fragments/_general_menu.vm")
-    #parse("/templates/fragments/_admin_menu.vm")
+    <div class="container">
+        #parse("/templates/fragments/_admin_menu.vm")
 
-    Witamy $userName w panelu admina!
+        Witamy $userName w panelu admina!
+    </div>
 </body>
 #parse("/templates/fragments/_general_footer.vm")

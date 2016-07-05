@@ -18,6 +18,6 @@ public class AdminController
     @RequestMapping("/home")
     public String home()
     {
-        return "admin_home";
+        return "admin/home";
     }
 }

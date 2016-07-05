@@ -2,9 +2,15 @@
 <body>
     #parse("/templates/fragments/_general_menu.vm")
     <form class="loginForm" action="/auth/register" method="post">
-        #if ($failed)
+        #if ($fill_all_fields)
         <div class="row">
             <div class="card-panel red lighten-1">Fill all fields!</div>
+        </div>
+        #end
+
+        #if ($username_exists)
+        <div class="row">
+            <div class="card-panel red lighten-1">That username already exists :(</div>
         </div>
         #end
         <div class="row">

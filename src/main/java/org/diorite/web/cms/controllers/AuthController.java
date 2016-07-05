@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.security.Principal;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class AuthController
             return "redirect:/";
         }
         model.addAttribute("failed", failed);
-        return "form_login";
+        return "forms/login";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -54,7 +55,7 @@ public class AuthController
         {
             return "redirect:/";
         }
-        return "form_register";
+        return "forms/register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -64,7 +65,20 @@ public class AuthController
         {
             return "redirect:/";
         }
-        final Account account = new Account(user, null, password, this.groupRepository.findById(0));
+
+        if (StringUtils.isEmpty(user) || StringUtils.isEmpty(email) || StringUtils.isEmpty(password))
+        {
+            model.addAttribute("fill_all_fields", true);
+            return "forms/register";
+        }
+
+        if (this.accountRepository.existsByUserName(user))
+        {
+            model.addAttribute("username_exists", true);
+            return "forms/register";
+        }
+
+        final Account account = new Account(user, null, email, password, this.groupRepository.findById(0));
         this.accountRepository.saveAndFlush(account);
 
         return "redirect:/";

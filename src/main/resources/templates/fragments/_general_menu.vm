@@ -2,14 +2,21 @@
     <div class="nav-wrapper container">
         <a id="logo-container" href="/" class="brand-logo">#OnlyDiorite</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="http://diorite.org/SorryWeDoNotHaveFormYet/">Forum</a></li>
+            <li><a href="http://diorite.org/boards/">Forum</a></li>
             <li><a href="http://ci.diorite.org/job/Diorite/">Jenkins</a></li>
             <li><a href="https://github.com/Diorite/Diorite/">GitHub</a></li>
             <li><a href="http://diorite.org/nexus/">Nexus</a></li>
-            <li><a href="http://diorite.org/snake/">Snake</a></li>
 
             #if ($isLoggedIn)
-            <li><a href="/auth/logout">Logout</a></li>
+            <ul id="user-dropdown" class="dropdown-content">
+              <li><a href="/profile/$userId">Profile</a></li>
+              <li><a href="/settings">Settings</a></li>
+              <li class="divider"></li>
+              <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+
+            <li><a class="dropdown-button" href="#!" data-activates="user-dropdown">$userName<i class="material-icons right">arrow_drop_down</i></a></li>
+
             #else
             <li><a href="/auth/login">Login</a></li>
             #end
@@ -20,7 +27,6 @@
             <li><a href="http://ci.diorite.org/job/Diorite/">Jenkins</a></li>
             <li><a href="https://github.com/Diorite/Diorite/">GitHub</a></li>
             <li><a href="http://diorite.org/nexus/">Nexus</a></li>
-            <li><a href="http://diorite.org/snake/">Snake</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
