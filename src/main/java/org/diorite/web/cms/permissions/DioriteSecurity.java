@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class DioriteSecurity extends WebSecurityConfigurerAdapter
 {
     @Autowired
@@ -20,10 +22,10 @@ public class DioriteSecurity extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(final HttpSecurity http) throws Exception
     {
-
-        http.formLogin().loginPage("/auth/login").failureUrl("/auth/login?failed=true").defaultSuccessUrl("/").permitAll();
+        http.csrf().disable(); // TODO make it works
+        http.authorizeRequests().anyRequest().permitAll();
+        http.formLogin().loginPage("/auth/login").failureUrl("/auth/login?failed=true").defaultSuccessUrl("/");
         http.exceptionHandling().accessDeniedPage("/auth/access_denied");
-
     }
 
     @Override

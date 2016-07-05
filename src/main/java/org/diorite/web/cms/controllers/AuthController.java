@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.security.Principal;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,7 +71,7 @@ public class AuthController
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpServletResponse response)
+    public String logout(final HttpServletRequest request, final HttpServletResponse response)
     {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null)
@@ -81,5 +83,11 @@ public class AuthController
         {
             return "redirect:/";
         }
+    }
+
+    @Override
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).toString();
     }
 }

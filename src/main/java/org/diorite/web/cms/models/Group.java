@@ -6,21 +6,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import java.util.List;
+import java.util.Set;
+
+import com.google.common.collect.Sets;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.core.GrantedAuthority;
 
+import org.diorite.web.cms.permissions.PermissionsHolder;
+
 @Entity(name = "groups")
-public class Group implements GrantedAuthority
+public class Group implements GrantedAuthority, PermissionsHolder
 {
     @Id
     @GeneratedValue
-    private int              id;
-    private String           fancyName;
+    private int             id;
+    private String          fancyName;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Permission> permissions;
+    private Set<Permission> permissions;
 
     public Group()
     {
@@ -47,9 +51,16 @@ public class Group implements GrantedAuthority
         return this.id;
     }
 
-    public List<Permission> getPermissions()
+    @Override
+    public Set<Permission> getPermissions()
     {
-        return this.permissions;
+        return Sets.newCopyOnWriteArraySet(this.permissions);
+    }
+
+    @Override
+    public boolean hasPermission(final Permission permission)
+    {
+        return this.permissions.contains(permission);
     }
 
     @Override

@@ -30,6 +30,11 @@ public class VelocityConnector implements HandlerInterceptor
         {
             modelAndView = new ModelAndView();
         }
+        else if (modelAndView.getViewName().startsWith("redirect"))
+        {
+            return; // Don't affect redirects
+        }
+
         final Principal auth = httpServletRequest.getUserPrincipal();
         final boolean isLoggedIn = auth != null && (auth instanceof UsernamePasswordAuthenticationToken);
 
@@ -37,8 +42,8 @@ public class VelocityConnector implements HandlerInterceptor
         if (isLoggedIn)
         {
             final Account account = (Account) ((UsernamePasswordAuthenticationToken) auth).getPrincipal();
-            
-            modelAndView.addObject("userName", account.getDisplayName());
+
+            modelAndView.addObject("userName", account.getUserName());
         }
     }
 

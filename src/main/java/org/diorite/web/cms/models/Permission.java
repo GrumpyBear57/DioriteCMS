@@ -10,8 +10,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity(name = "permissions")
 public class Permission
 {
+    private static final int MAX_PERMISSION_LENGTH = 64;
+
     @Id
-    @Column(nullable = false, unique = true, length = 64)
+    @Column(nullable = false, unique = true, length = MAX_PERMISSION_LENGTH)
     private String name;
     @Column(nullable = false)
     private String displayName;
@@ -20,13 +22,18 @@ public class Permission
     {
     }
 
-    public Permission(final String name, final String displayName)
+    public Permission(final String name)
     {
         this.name = name;
-        if (this.name.length() > 64)
+        if (this.name.length() > MAX_PERMISSION_LENGTH)
         {
             throw new IllegalArgumentException();
         }
+    }
+
+    public Permission(final String name, final String displayName)
+    {
+        this(name);
         this.displayName = displayName;
     }
 

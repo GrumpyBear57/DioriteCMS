@@ -6,11 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import java.util.Set;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.diorite.web.cms.permissions.PermissionsHolder;
+
 @Entity(name = "accounts")
-public class Account
+public class Account implements PermissionsHolder
 {
     @Id
     @GeneratedValue
@@ -79,6 +83,18 @@ public class Account
     public void setGroup(final Group group)
     {
         this.group = group;
+    }
+
+    @Override
+    public Set<Permission> getPermissions()
+    {
+        return this.group.getPermissions();
+    }
+
+    @Override
+    public boolean hasPermission(final Permission permission)
+    {
+        return this.group.hasPermission(permission);
     }
 
     @Override
