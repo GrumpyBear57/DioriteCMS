@@ -78,7 +78,7 @@ public class AuthController
             return "forms/register";
         }
 
-        final Account account = new Account(user, null, email, password, this.groupRepository.findById(0));
+        final Account account = new Account(user, null, email, password, this.groupRepository.findById(1));
         this.accountRepository.saveAndFlush(account);
 
         return "redirect:/";

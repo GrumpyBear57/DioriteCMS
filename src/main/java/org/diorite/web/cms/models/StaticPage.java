@@ -13,4 +13,48 @@ public class StaticPage
     private String  name;
     private boolean published;
     private boolean displayFrame;
+
+    public StaticPage()
+    {
+    }
+
+    public Integer getId()
+    {
+        return this.id;
+    }
+
+    public void setId(final Integer id)
+    {
+        this.id = id;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public void setName(final String name)
+    {
+        this.name = name;
+    }
+
+    public boolean isPublished()
+    {
+        return this.published;
+    }
+
+    public void setPublished(final boolean published)
+    {
+        this.published = published;
+    }
+
+    public boolean isDisplayFrame()
+    {
+        return this.displayFrame;
+    }
+
+    public void setDisplayFrame(final boolean displayFrame)
+    {
+        this.displayFrame = displayFrame;
+    }
 }

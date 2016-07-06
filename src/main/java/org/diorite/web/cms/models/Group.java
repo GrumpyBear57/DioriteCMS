@@ -12,19 +12,27 @@ import com.google.common.collect.Sets;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
+import org.diorite.web.cms.permissions.PermissionsGrantable;
 import org.diorite.web.cms.permissions.PermissionsHolder;
+import org.diorite.web.cms.services.PermissionsService;
 
 @Entity(name = "groups")
-public class Group implements GrantedAuthority, PermissionsHolder
+public class Group implements GrantedAuthority, PermissionsHolder, PermissionsGrantable
 {
+    // Entity structure
     @Id
     @GeneratedValue
     private int             id;
     private String          fancyName;
+    private boolean         isSpecial;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Permission> permissions;
+    // Others
+    @Autowired
+    private static transient PermissionsService permissionsService;
 
     public Group()
     {
@@ -51,6 +59,11 @@ public class Group implements GrantedAuthority, PermissionsHolder
         return this.id;
     }
 
+    public boolean isSpecial()
+    {
+        return this.isSpecial;
+    }
+
     @Override
     public Set<Permission> getPermissions()
     {
@@ -61,6 +74,18 @@ public class Group implements GrantedAuthority, PermissionsHolder
     public boolean hasPermission(final Permission permission)
     {
         return this.permissions.contains(permission);
+    }
+
+    @Override
+    public void grantPermission(final Permission permission)
+    {
+        this.permissions.add(permissionsService.get(permission));
+    }
+
+    @Override
+    public void removePermission(final Permission permission)
+    {
+        this.permissions.remove(permission);
     }
 
     @Override
