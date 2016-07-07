@@ -1,6 +1,13 @@
 #parse("/templates/fragments/_general_header.vm")
 <body>
     #parse("/templates/fragments/_general_menu.vm")
-    $static_page_content
+    #if ($page.isDisplayFrame())
+    <div class="container">
+    <div class="card-panel">
+    #end
+    $page.getContent()
+    #if ($page.isDisplayFrame())
+    </div></div>
+    #end
 </body>
 #parse("/templates/fragments/_general_footer.vm")

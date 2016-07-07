@@ -3,11 +3,19 @@
     #parse("/templates/fragments/_general_menu.vm")
     <div class="container">
         #parse("/templates/fragments/_admin_menu.vm")
+
+        <div class="row valign-wrapper">
+            <div class="col s11 valign"><h4>Przeglądanie listy stron</h4></div>
+            <div class="col s2 valign"><a href="/admin/pages/new" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Nowa</a></div>
+        </div>
+
+        <div class="divider"></div>
+
         <table>
             <thead>
                 <tr>
                     <th data-field="id">Nazwa</th>
-                    <th data-field="name">Opublikowana</th>
+                    <th data-field="name">Dostępność</th>
                     <th data-field="name">Opcje</th>
                 </tr>
             </thead>
@@ -18,14 +26,12 @@
                     <td>$page.getName()</td>
 
                     <td>
-                    #if ($page.isPublished())
-                    Tak
-                    #else
-                    Nie
-                    #end
+                        <input id="pc" type="checkbox" #printIfTrue($page.isPublished() "checked") onclick="setStaticPagePublished($page.getId(), this.checked)">
+                        <label for="pc">Opublikowana</label>
                     </td>
 
                     <td>
+                        <a href="/page/$page.getId()" target="_blank"><i class="material-icons">pageview</i></a>
                         <a href="/admin/pages/$page.getId()"><i class="material-icons">mode_edit</i></a>
                         <a href="#" onclick="deleteStaticPage($page.getId()); return false;"><i class="material-icons">delete</i></a>
                     </td>

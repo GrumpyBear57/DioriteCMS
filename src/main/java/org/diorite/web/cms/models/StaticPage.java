@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
+
 @Entity(name = "static_pages")
 public class StaticPage
 {
@@ -11,11 +13,21 @@ public class StaticPage
     @GeneratedValue
     private Integer id;
     private String  name;
+    @Type(type="text")
+    private String  content;
     private boolean published;
     private boolean displayFrame;
 
     public StaticPage()
     {
+    }
+
+    public StaticPage(final String name, final String content, final boolean published, final boolean displayFrame)
+    {
+        this.name = name;
+        this.content = content;
+        this.published = published;
+        this.displayFrame = displayFrame;
     }
 
     public Integer getId()
@@ -36,6 +48,16 @@ public class StaticPage
     public void setName(final String name)
     {
         this.name = name;
+    }
+
+    public String getContent()
+    {
+        return this.content;
+    }
+
+    public void setContent(final String content)
+    {
+        this.content = content;
     }
 
     public boolean isPublished()

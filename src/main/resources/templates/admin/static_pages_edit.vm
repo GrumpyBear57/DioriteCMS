@@ -4,7 +4,32 @@
     <div class="container">
         #parse("/templates/fragments/_admin_menu.vm")
 
-        Witamy $userName w panelu admina!
+        <h4>Edytowanie statycznej strony $page.getName()</h4>
+        <div class="divider"></div>
+
+        #initTinymce ("textarea" 400)
+
+        <form class="row" action="/admin/pages/$page.getId()" method="post">
+            <div class="col s10">
+                <textarea name="content">
+                    $page.getContent()
+                </textarea>
+            </div>
+
+            <div class="col s2"><input type="submit" class="waves-effect waves-light btn" value="Zapisz stronę"></div>
+
+            <div class="divider"></div>
+
+            <div class="col s2">
+                <input id="published" type="checkbox" name="published" value="true" #printIfTrue($page.isPublished() "checked")>
+                <label for="published">Opublikowana</label>
+            </div>
+
+            <div class="col s2">
+                <input id="frame" type="checkbox" name="frame" value="true" #printIfTrue($page.isDisplayFrame() "checked")>
+                <label for="frame">Pokazuj ramkę</label>
+            </div>
+        </form>
     </div>
 </body>
 #parse("/templates/fragments/_general_footer.vm")

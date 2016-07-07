@@ -1,4 +1,5 @@
 #parse("/templates/fragments/_text_editor.vm")
+#parse("/templates/fragments/_utils.vm")
 <!DOCTYPE html>
 <html lang="en">
 <head>

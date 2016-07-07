@@ -8,3 +8,8 @@ function deleteStaticPage(pageId)
         $("#page-entry-" + pageId).remove();
     }});
 }
+
+function setStaticPagePublished(pageId, value)
+{
+    $.post("/admin/pages/" + pageId, {"published": value});
+}
