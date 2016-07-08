@@ -22,23 +22,22 @@ public class PermissionsServiceTest
     @Test
     public void generalTest()
     {
-        assertEquals(1, this.permissionsService.getAllPermissions().size());
-        assertEquals("access.acp", this.permissionsService.getAllPermissions().iterator().next().getName());
+        assertEquals(3, this.permissionsService.getAllPermissions().size());
     }
 
     @Test
     public void resolvingTest()
     {
-        final Permission permission = new Permission("access.acp");
-        assertEquals("access.acp", permission.getName());
+        final Permission permission = new Permission("perm1");
+        assertEquals("perm1", permission.getName());
         assertEquals(null, permission.getDisplayName());
 
         final Permission permission1 = this.permissionsService.get(permission);
-        assertEquals("access.acp", permission1.getName());
-        assertEquals("test", permission1.getDisplayName());
+        assertEquals("perm1", permission1.getName());
+        assertEquals("test perm 1", permission1.getDisplayName());
 
-        final Permission permission2 = this.permissionsService.get("access.acp");
-        assertEquals("access.acp", permission2.getName());
-        assertEquals("test", permission2.getDisplayName());
+        final Permission permission2 = this.permissionsService.get("perm2");
+        assertEquals("perm2", permission2.getName());
+        assertEquals("test perm 2", permission2.getDisplayName());
     }
 }
