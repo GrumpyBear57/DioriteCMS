@@ -98,3 +98,7 @@ footer.page-footer {
     margin: 5% auto auto auto;
     max-width: 450px
 }
+
+.admin-nav {
+    background-color: #fff
+}

@@ -1,0 +1,15 @@
+<div class="col s1">
+    <ul class="admin-nav">
+        <li class="bold">
+            <a href="/admin/home" class="waves-effect waves-teal">Home</a>
+        </li>
+
+        <li class="bold">
+            <a href="/admin/pages" class="waves-effect waves-teal">Pages</a>
+        </li>
+
+        <li class="bold">
+            <a href="/admin/groups" class="waves-effect waves-teal">Groups</a>
+        </li>
+    </ul>
+</div>

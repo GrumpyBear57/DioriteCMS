@@ -9,6 +9,6 @@ public class GeneralController
     @RequestMapping("/")
     public String home()
     {
-        return "access_denied";
+        return "error";
     }
 }

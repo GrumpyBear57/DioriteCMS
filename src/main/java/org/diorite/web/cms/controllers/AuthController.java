@@ -32,9 +32,11 @@ public class AuthController
     private AccountRepository accountRepository;
 
     @RequestMapping(value = "/access_denied")
-    public String accessDenied()
+    public String accessDenied(final Model model)
     {
-        return "access_denied";
+        model.addAttribute("status", "Internal Permissions");
+        model.addAttribute("error", "You don't have permissions to access this page!");
+        return "error";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

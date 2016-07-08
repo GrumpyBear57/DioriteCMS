@@ -21,11 +21,11 @@ public class PermissionsService
     private final Set<Permission> allPermissions = new HashSet<>();
 
     @Autowired
-    public PermissionsService(final PermissionRepository permissionRepository)
+    public PermissionsService(final PermissionRepository permissionRepository, final DioriteCms cms)
     {
         this.permissionRepository = permissionRepository;
         this.allPermissions.addAll(this.permissionRepository.findAll());
-        DioriteCms.getInstance().getLogger().info("Loaded " + this.allPermissions.size() + " permissions!");
+        cms.getLogger().info("Loaded " + this.allPermissions.size() + " permissions!");
     }
 
     public Set<Permission> getAllPermissions()

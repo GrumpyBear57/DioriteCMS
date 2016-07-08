@@ -6,6 +6,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,9 +39,17 @@ public class PageController
 
         final StaticPage page = this.staticPageRepository.getOne(id);
 
-        if (! page.isPublished() || (principal != null && ((Account) principal).hasPermission("access.acp")))
+        boolean isAdmin = false;
+        if (principal != null)
         {
-            return "access_denied";
+            final Authentication auth = (Authentication) principal;
+            final Account account = (Account) auth.getPrincipal();
+            isAdmin = account.hasPermission("access.acp");
+        }
+
+        if (! page.isPublished() && ! isAdmin)
+        {
+            throw new AccessDeniedException("You don't have permissions to access this page");
         }
 
         model.addAttribute("page", page);

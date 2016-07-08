@@ -46,7 +46,7 @@ public class AdminPagesController
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public String postEditStaticPage(final @PathVariable Integer id, final @RequestParam(required = false) String content, final @RequestParam(required = false) Boolean published, final @RequestParam(required = false) Boolean frame)
+    public String postEditStaticPage(final @PathVariable Integer id, final @RequestParam(required = false) String name, final @RequestParam(required = false) String content, final @RequestParam(required = false) Boolean published, final @RequestParam(required = false) Boolean frame)
     {
         final StaticPage page = this.staticPageRepository.getOne(id);
         if (page == null)
@@ -54,6 +54,10 @@ public class AdminPagesController
             return "redirect:/admin/pages"; // TODO
         }
 
+        if (name != null)
+        {
+            page.setName(name);
+        }
         if (content != null)
         {
             page.setContent(content);

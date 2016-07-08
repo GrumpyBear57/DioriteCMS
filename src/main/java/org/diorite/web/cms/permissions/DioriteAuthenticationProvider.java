@@ -22,6 +22,8 @@ import org.diorite.web.cms.models.Account;
 public class DioriteAuthenticationProvider implements AuthenticationProvider
 {
     @Autowired
+    private DioriteCms cms;
+    @Autowired
     private AccountRepository accountRepository;
 
     @Override
@@ -58,7 +60,7 @@ public class DioriteAuthenticationProvider implements AuthenticationProvider
         {
             return true;
         }
-        DioriteCms.getInstance().getLogger().warning("Unsupported authentication method: " + aClass);
+        cms.getLogger().warning("Unsupported authentication method: " + aClass);
         return false;
     }
 

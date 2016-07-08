@@ -1,44 +1,46 @@
 #parse("/templates/fragments/_general_header.vm")
 <body>
     #parse("/templates/fragments/_general_menu.vm")
-    <div class="container">
+    <div class="container row">
         #parse("/templates/fragments/_admin_menu.vm")
 
-        <div class="row valign-wrapper">
-            <div class="col s11 valign"><h4>Przeglądanie listy stron</h4></div>
-            <div class="col s2 valign"><a href="/admin/pages/new" class="waves-effect waves-light btn"><i class="material-icons right">add</i>Nowa</a></div>
+        <div class="col s11">
+            <div class="valign-wrapper">
+                <div class="col s10 valign"><h4>Browsing pages list</h4></div>
+                <div class="col s2 valign right"><a href="/admin/pages/new" class="waves-effect waves-light btn"><i class="material-icons right">add</i>New</a></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th data-field="id">Name</th>
+                        <th data-field="name">Availability</th>
+                        <th data-field="name">Options</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    #foreach ($page in $pages)
+                    <tr id="page-entry-$page.getId()">
+                        <td>$page.getName()</td>
+
+                        <td>
+                            <input id="pc" type="checkbox" #printIfTrue($page.isPublished() "checked") onclick="setStaticPagePublished($page.getId(), this.checked)">
+                            <label for="pc">Published</label>
+                        </td>
+
+                        <td>
+                            <a href="/page/$page.getId()" target="_blank"><i class="material-icons">pageview</i></a>
+                            <a href="/admin/pages/$page.getId()"><i class="material-icons">mode_edit</i></a>
+                            <a href="#" onclick="deleteStaticPage($page.getId()); return false;"><i class="material-icons">delete</i></a>
+                        </td>
+                    </tr>
+                    #end
+                </tbody>
+            </table>
         </div>
-
-        <div class="divider"></div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th data-field="id">Nazwa</th>
-                    <th data-field="name">Dostępność</th>
-                    <th data-field="name">Opcje</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                #foreach ($page in $pages)
-                <tr id="page-entry-$page.getId()">
-                    <td>$page.getName()</td>
-
-                    <td>
-                        <input id="pc" type="checkbox" #printIfTrue($page.isPublished() "checked") onclick="setStaticPagePublished($page.getId(), this.checked)">
-                        <label for="pc">Opublikowana</label>
-                    </td>
-
-                    <td>
-                        <a href="/page/$page.getId()" target="_blank"><i class="material-icons">pageview</i></a>
-                        <a href="/admin/pages/$page.getId()"><i class="material-icons">mode_edit</i></a>
-                        <a href="#" onclick="deleteStaticPage($page.getId()); return false;"><i class="material-icons">delete</i></a>
-                    </td>
-                </tr>
-                #end
-            </tbody>
-        </table>
     </div>
 </body>
 #parse("/templates/fragments/_general_footer.vm")
