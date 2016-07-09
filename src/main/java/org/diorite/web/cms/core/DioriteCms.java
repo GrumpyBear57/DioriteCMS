@@ -2,6 +2,7 @@ package org.diorite.web.cms.core;
 
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -9,6 +10,8 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import org.diorite.web.cms.services.PermissionsService;
 
 @SpringBootApplication(scanBasePackages = "org.diorite.web.cms.*")
 @EntityScan("org.diorite.web.cms.*")
@@ -18,9 +21,12 @@ public class DioriteCms extends SpringBootServletInitializer
 {
     private static DioriteCms INSTANCE;
     private final Logger logger = Logger.getLogger("DioriteCMS");
+    @Autowired
+    private PermissionsService permissionsService;
 
     public DioriteCms()
     {
+        DioriteCms.INSTANCE = this;
     }
 
     private void run()
@@ -32,6 +38,11 @@ public class DioriteCms extends SpringBootServletInitializer
         return this.logger;
     }
 
+    public PermissionsService getPermissionsService()
+    {
+        return this.permissionsService;
+    }
+
     @Override
     protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder)
     {
@@ -40,7 +51,6 @@ public class DioriteCms extends SpringBootServletInitializer
 
     public static void main(final String[] args)
     {
-        DioriteCms.INSTANCE = new DioriteCms();
         SpringApplication.run(DioriteCms.class, args);
         DioriteCms.INSTANCE.run();
     }

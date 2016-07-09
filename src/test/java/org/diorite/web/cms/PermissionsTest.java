@@ -23,12 +23,12 @@ public class PermissionsTest
     @Test
     public void hasPermissionTest()
     {
-        final Group group1 = this.groupRepository.findById(1);
+        final Group group1 = this.groupRepository.findOne(1);
         assertEquals(true, group1.hasPermission("perm1"));
         assertEquals(true, group1.hasPermission("perm2"));
         assertEquals(true, group1.hasPermission("perm3"));
 
-        final Group group2 = this.groupRepository.findById(2);
+        final Group group2 = this.groupRepository.findOne(2);
         assertEquals(true, group2.hasPermission("perm1"));
         assertEquals(false, group2.hasPermission("perm2"));
         assertEquals(true, group2.hasPermission("perm3"));
@@ -37,7 +37,7 @@ public class PermissionsTest
     @Test
     public void grantingTest()
     {
-        final Group group4 = this.groupRepository.findById(4);
+        final Group group4 = this.groupRepository.findOne(4);
 
         assertEquals(false, group4.hasPermission("perm1"));
         assertEquals(false, group4.hasPermission("perm2"));
@@ -59,7 +59,7 @@ public class PermissionsTest
     @Test
     public void degrantingTest()
     {
-        final Group group3 = this.groupRepository.findById(3);
+        final Group group3 = this.groupRepository.findOne(3);
         group3.removePermission("perm2");
 
         assertEquals(false, group3.hasPermission("perm1"));

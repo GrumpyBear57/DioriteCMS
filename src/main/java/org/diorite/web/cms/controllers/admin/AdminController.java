@@ -23,8 +23,6 @@ public class AdminController
         return "admin/home";
     }
 
-
-
     @Override
     public String toString()
     {

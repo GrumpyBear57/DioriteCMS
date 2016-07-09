@@ -27,8 +27,8 @@
                         <td>$page.getName()</td>
 
                         <td>
-                            <input id="pc" type="checkbox" #printIfTrue($page.isPublished() "checked") onclick="setStaticPagePublished($page.getId(), this.checked)">
-                            <label for="pc">Published</label>
+                            <input id="pc-$page.getId()" type="checkbox" #printIfTrue($page.isPublished() "checked") onclick="setStaticPagePublished($page.getId(), this.checked)">
+                            <label for="pc-$page.getId()">Published</label>
                         </td>
 
                         <td>

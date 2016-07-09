@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.diorite.web.cms.models.Group;
 
 @Repository
+@Cacheable("groups")
 public interface GroupRepository extends JpaRepository<Group, Integer>
 {
-    @Cacheable("groups")
-    Group findById(Integer id);
 }

@@ -6,18 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
+import org.diorite.web.cms.core.DioriteCms;
 import org.diorite.web.cms.permissions.PermissionsGrantable;
 import org.diorite.web.cms.permissions.PermissionsHolder;
-import org.diorite.web.cms.services.PermissionsService;
 
 @Entity(name = "groups")
 public class Group implements GrantedAuthority, PermissionsHolder, PermissionsGrantable
@@ -30,9 +30,6 @@ public class Group implements GrantedAuthority, PermissionsHolder, PermissionsGr
     private boolean         isSpecial;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Permission> permissions;
-    // Others
-    @Autowired
-    private static transient PermissionsService permissionsService;
 
     public Group()
     {
@@ -79,7 +76,11 @@ public class Group implements GrantedAuthority, PermissionsHolder, PermissionsGr
     @Override
     public void grantPermission(final Permission permission)
     {
-        this.permissions.add(permissionsService.get(permission));
+        if (this.permissions == null)
+        {
+            this.permissions = new HashSet<>();
+        }
+        this.permissions.add(DioriteCms.getInstance().getPermissionsService().get(permission));
     }
 
     @Override

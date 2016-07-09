@@ -1,3 +1,8 @@
+-- Pages
+INSERT INTO static_pages VALUES (1, 'page content 1', true, 'test page 1', true);
+INSERT INTO static_pages VALUES (2, 'page content 2', true, 'test page 2', true);
+INSERT INTO static_pages VALUES (3, 'page content 3', true, 'test page 3', false);
+
 -- Permissions
 INSERT INTO permissions VALUES ('perm1', 'test perm 1');
 INSERT INTO permissions VALUES ('perm2', 'test perm 2');

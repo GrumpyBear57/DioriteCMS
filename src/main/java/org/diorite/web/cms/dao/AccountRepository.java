@@ -12,9 +12,6 @@ import org.diorite.web.cms.models.Account;
 public interface AccountRepository extends JpaRepository<Account, Integer>
 {
     @Cacheable("accounts")
-    Account findById(Integer id);
-
-    @Cacheable("accounts")
     Account findByUserName(String userName);
 
     @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM accounts a WHERE LOWER(a.userName) = LOWER(:userName)")

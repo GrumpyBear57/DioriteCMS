@@ -8,5 +8,4 @@ import org.diorite.web.cms.models.StaticPage;
 @Repository
 public interface StaticPageRepository extends JpaRepository<StaticPage, Integer>
 {
-
 }
