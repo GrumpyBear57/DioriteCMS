@@ -15,7 +15,7 @@ public interface PermissionsHolder
         return this.hasPermission(new Permission(permission));
     }
 
-    default boolean hasPermissions(String... permissions)
+    default boolean hasPermissions(final String... permissions)
     {
         for (final String permission : permissions)
         {
@@ -27,7 +27,7 @@ public interface PermissionsHolder
         return true;
     }
 
-    default boolean hasPermissions(Permission... permissions)
+    default boolean hasPermissions(final Permission... permissions)
     {
         for (final Permission permission : permissions)
         {

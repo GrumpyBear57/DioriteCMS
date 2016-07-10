@@ -1,6 +1,15 @@
 #parse("/templates/fragments/_general_header.vm")
 <body>
     #parse("/templates/fragments/_general_menu.vm")
-    Something went wrong... ${status} ${error}
+    <div class="container">
+        <div class="card-panel">
+            <div class="row valign-wrapper">
+                <div class="col s11 valign"><h4>Something went wrong... (╯°□°）╯︵ ┻━┻</h4></div>
+                <div class="col s1 valign right">#[[#]]#${status}</div>
+            </div>
+            <div class="divider"></div>
+            <p>${error}</p>
+        </div>
+    </div>
 </body>
 #parse("/templates/fragments/_general_footer.vm")

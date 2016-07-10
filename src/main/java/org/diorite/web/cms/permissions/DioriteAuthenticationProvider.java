@@ -2,6 +2,7 @@ package org.diorite.web.cms.permissions;
 
 import java.util.Collections;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.diorite.web.cms.models.Account;
 public class DioriteAuthenticationProvider implements AuthenticationProvider
 {
     @Autowired
+    private DioriteCms cms;
+    @Autowired
     private AccountRepository accountRepository;
 
     @Override
@@ -29,7 +32,7 @@ public class DioriteAuthenticationProvider implements AuthenticationProvider
         final String username = authentication.getName();
         final String password = (String) authentication.getCredentials();
 
-        if (username == null || username.isEmpty() || password == null || password.isEmpty())
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password))
         {
             throw new BadCredentialsException("Fill username and password fields!");
         }
@@ -57,7 +60,7 @@ public class DioriteAuthenticationProvider implements AuthenticationProvider
         {
             return true;
         }
-        DioriteCms.getInstance().getLogger().warning("Unsupported authentication method: " + aClass);
+        cms.getLogger().warning("Unsupported authentication method: " + aClass);
         return false;
     }
 

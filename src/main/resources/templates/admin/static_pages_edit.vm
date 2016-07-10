@@ -1,0 +1,42 @@
+#parse("/templates/fragments/_general_header.vm")
+<body>
+    #parse("/templates/fragments/_general_menu.vm")
+    <div class="container row">
+        #parse("/templates/fragments/_admin_menu.vm")
+
+        <div class="col s11">
+            <div class="row">
+                <div class="col s12 valign"><h4>Editing static page</h4></div>
+            </div>
+            <div class="divider"></div>
+
+            #initTinymce ("textarea" 400)
+
+            <form class="row" action="/admin/pages/$page.getId()" method="post">
+                <div class="input-field col s10">
+                    <input name="name" id="name" type="text" value="$page.getName()">
+                    <label for="name">Page name</label>
+                </div>
+
+                <div class="col s10">
+                    <textarea name="content">
+                        $page.getContent()
+                    </textarea>
+                </div>
+
+                <div class="col s2 center"><input type="submit" class="waves-effect waves-light btn" value="Save page"></div>
+
+                <div class="col s2">
+                    <input id="published" type="checkbox" name="published" #printIfTrue($page.isPublished() "checked") onclick="setStaticPagePublished($page.getId(), this.checked)">
+                    <label for="published">Published</label>
+                </div>
+
+                <div class="col s2">
+                    <input id="frame" type="checkbox" name="frame" #printIfTrue($page.isDisplayFrame() "checked") onclick="setStaticPageFrame($page.getId(), this.checked)">
+                    <label for="frame">Display frame</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+#parse("/templates/fragments/_general_footer.vm")

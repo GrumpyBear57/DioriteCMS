@@ -1,0 +1,46 @@
+#parse("/templates/fragments/_general_header.vm")
+<body>
+    #parse("/templates/fragments/_general_menu.vm")
+    <div class="container row">
+        #parse("/templates/fragments/_admin_menu.vm")
+
+        <div class="col s11">
+            <div class="valign-wrapper">
+                <div class="col s10 valign"><h4>Browsing pages list</h4></div>
+                <div class="col s2 valign right"><a href="/admin/pages/new" class="waves-effect waves-light btn"><i class="material-icons right">add</i>New</a></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th data-field="id">Name</th>
+                        <th data-field="name">Availability</th>
+                        <th data-field="name">Options</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    #foreach ($page in $pages)
+                    <tr id="page-entry-$page.getId()">
+                        <td>$page.getName()</td>
+
+                        <td>
+                            <input id="pc-$page.getId()" type="checkbox" #printIfTrue($page.isPublished() "checked") onclick="setStaticPagePublished($page.getId(), this.checked)">
+                            <label for="pc-$page.getId()">Published</label>
+                        </td>
+
+                        <td>
+                            <a href="/page/$page.getId()" target="_blank"><i class="material-icons">pageview</i></a>
+                            <a href="/admin/pages/$page.getId()"><i class="material-icons">mode_edit</i></a>
+                            <a href="#" onclick="deleteStaticPage($page.getId()); return false;"><i class="material-icons">delete</i></a>
+                        </td>
+                    </tr>
+                    #end
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+#parse("/templates/fragments/_general_footer.vm")

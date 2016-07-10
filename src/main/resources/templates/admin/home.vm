@@ -1,0 +1,12 @@
+#parse("/templates/fragments/_general_header.vm")
+<body>
+    #parse("/templates/fragments/_general_menu.vm")
+    <div class="container row">
+        #parse("/templates/fragments/_admin_menu.vm")
+
+        <div class="col s10">
+            Welcome $userName in administration control panel!
+        </div>
+    </div>
+</body>
+#parse("/templates/fragments/_general_footer.vm")

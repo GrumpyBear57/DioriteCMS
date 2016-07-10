@@ -1,0 +1,5 @@
+#macro (printIfTrue $bool $text)
+#if ($bool)
+$text
+#end
+#end

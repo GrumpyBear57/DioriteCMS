@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -14,15 +15,19 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.core.GrantedAuthority;
 
+import org.diorite.web.cms.core.DioriteCms;
+import org.diorite.web.cms.permissions.PermissionsGrantable;
 import org.diorite.web.cms.permissions.PermissionsHolder;
 
 @Entity(name = "groups")
-public class Group implements GrantedAuthority, PermissionsHolder
+public class Group implements GrantedAuthority, PermissionsHolder, PermissionsGrantable
 {
+    // Entity structure
     @Id
     @GeneratedValue
     private int             id;
     private String          fancyName;
+    private boolean         isSpecial;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Permission> permissions;
 
@@ -51,6 +56,11 @@ public class Group implements GrantedAuthority, PermissionsHolder
         return this.id;
     }
 
+    public boolean isSpecial()
+    {
+        return this.isSpecial;
+    }
+
     @Override
     public Set<Permission> getPermissions()
     {
@@ -61,6 +71,22 @@ public class Group implements GrantedAuthority, PermissionsHolder
     public boolean hasPermission(final Permission permission)
     {
         return this.permissions.contains(permission);
+    }
+
+    @Override
+    public void grantPermission(final Permission permission)
+    {
+        if (this.permissions == null)
+        {
+            this.permissions = new HashSet<>();
+        }
+        this.permissions.add(DioriteCms.getInstance().getPermissionsService().get(permission));
+    }
+
+    @Override
+    public void removePermission(final Permission permission)
+    {
+        this.permissions.remove(permission);
     }
 
     @Override
