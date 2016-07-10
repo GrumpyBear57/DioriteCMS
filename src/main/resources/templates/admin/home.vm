@@ -5,7 +5,7 @@
         #parse("/templates/fragments/_admin_menu.vm")
 
         <div class="col s10">
-            Welcome $userName in administration control panel!
+            Welcome $userName to the administration control panel!
         </div>
     </div>
 </body>

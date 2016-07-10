@@ -49,7 +49,7 @@ public class PageController
 
         if (! page.isPublished() && ! isAdmin)
         {
-            throw new AccessDeniedException("You don't have permissions to access this page");
+            throw new AccessDeniedException("You don't have permissions to access this page!");
         }
 
         model.addAttribute("page", page);
